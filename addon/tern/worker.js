@@ -24,7 +24,7 @@ function getFile(file, c) {
 }
 
 function startServer(defs, plugins, scripts) {
-  if (scripts) importScripts.apply(null, scripts);
+  if (scripts) importScripts(...scripts);
 
   server = new tern.Server({
     getFile: getFile,
