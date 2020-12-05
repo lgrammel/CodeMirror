@@ -194,7 +194,7 @@ function pass() {
 }
 
 function cont() {
-  pass.apply(null, arguments);
+  pass(...arguments);
   return true;
 }
 

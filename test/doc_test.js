@@ -54,7 +54,7 @@
       var successful = false;
 
       try {
-        run.apply(null, editors);
+        run(...editors);
         successful = true;
       } finally {
         if ((debug && !successful) || verbose) {

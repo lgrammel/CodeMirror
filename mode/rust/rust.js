@@ -132,7 +132,7 @@ CodeMirror.defineMode("rust", function() {
     for (var i = arguments.length - 1; i >= 0; i--) cx.cc.push(arguments[i]);
   }
   function cont() {
-    pass.apply(null, arguments);
+    pass(...arguments);
     return true;
   }
 
