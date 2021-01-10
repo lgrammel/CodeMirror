@@ -197,8 +197,7 @@ CodeMirror.defineMode("python", function(conf, parserConf) {
         return tokenString;
     }
 
-    function indent(stream, state, type) {
-        type = type || 'py';
+    function indent(stream, state, type = 'py') {
         var indentUnit = 0;
         if (type === 'py') {
             if (state.scopes[0].type !== 'py') {
@@ -220,8 +219,7 @@ CodeMirror.defineMode("python", function(conf, parserConf) {
         });
     }
 
-    function dedent(stream, state, type) {
-        type = type || 'py';
+    function dedent(stream, state, type = 'py') {
         if (state.scopes.length == 1) return;
         if (state.scopes[0].type === 'py') {
             var _indent = stream.indentation();
