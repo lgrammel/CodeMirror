@@ -109,13 +109,11 @@ CodeMirror.defineMode("clojure", function () {
     }
 
     return {
-        startState: function () {
-            return {
-                indentStack: null,
-                indentation: 0,
-                mode: false
-            };
-        },
+        startState: () => ({
+            indentStack: null,
+            indentation: 0,
+            mode: false
+        }),
 
         token: function (stream, state) {
             if (state.indentStack == null && stream.sol()) {

@@ -407,18 +407,16 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   // Interface
 
   return {
-    startState: function(basecolumn) {
-      return {
-        tokenize: jsTokenBase,
-        lastType: null,
-        cc: [],
-        lexical: new JSLexical((basecolumn || 0) - indentUnit, 0, "block", false),
-        localVars: parserConfig.localVars,
-        globalVars: parserConfig.globalVars,
-        context: parserConfig.localVars && {vars: parserConfig.localVars},
-        indented: 0
-      };
-    },
+    startState: basecolumn => ({
+      tokenize: jsTokenBase,
+      lastType: null,
+      cc: [],
+      lexical: new JSLexical((basecolumn || 0) - indentUnit, 0, "block", false),
+      localVars: parserConfig.localVars,
+      globalVars: parserConfig.globalVars,
+      context: parserConfig.localVars && {vars: parserConfig.localVars},
+      indented: 0
+    }),
 
     token: function(stream, state) {
       if (stream.sol()) {

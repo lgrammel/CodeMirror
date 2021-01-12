@@ -107,7 +107,9 @@ CodeMirror.defineMode('shell', function() {
   };
 
   return {
-    startState: function() {return {tokens:[]};},
+    startState: () => ({
+      tokens:[]
+    }),
     token: function(stream, state) {
       if (stream.eatSpace()) return null;
       return tokenize(stream, state);

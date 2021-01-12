@@ -116,9 +116,7 @@ CodeMirror.defineMode('smalltalk', function(config) {
   };
 
   return {
-    startState: function() {
-      return new State;
-    },
+    startState: () => new State,
 
     token: function(stream, state) {
       state.userIndent(stream.indentation());

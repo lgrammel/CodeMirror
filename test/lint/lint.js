@@ -109,4 +109,4 @@ function checkDir(dir) {
 
 exports.checkDir = checkDir;
 exports.checkFile = checkFile;
-exports.success = function() { return !failed; };
+exports.success = () => !failed;

@@ -66,9 +66,10 @@ CodeMirror.defineMode("commonlisp", function (config) {
   }
 
   return {
-    startState: function () {
-      return {ctx: {prev: null, start: 0, indentTo: 0}, tokenize: base};
-    },
+    startState: () => ({
+      ctx: {prev: null, start: 0, indentTo: 0},
+      tokenize: base
+    }),
 
     token: function (stream, state) {
       if (stream.sol() && typeof state.ctx.indentTo != "number")

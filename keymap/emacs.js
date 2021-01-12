@@ -323,10 +323,10 @@
       });
     }),
     "Alt-U": repeated(function(cm) {
-      operateOnWord(cm, function(w) { return w.toUpperCase(); });
+      operateOnWord(cm, w => w.toUpperCase());
     }),
     "Alt-L": repeated(function(cm) {
-      operateOnWord(cm, function(w) { return w.toLowerCase(); });
+      operateOnWord(cm, w => w.toLowerCase());
     }),
 
     "Alt-;": "toggleComment",

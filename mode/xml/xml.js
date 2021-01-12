@@ -276,9 +276,15 @@ CodeMirror.defineMode("xml", function(config, parserConfig) {
   }
 
   return {
-    startState: function() {
-      return {tokenize: inText, cc: [], indented: 0, startOfLine: true, tagName: null, tagStart: null, context: null};
-    },
+    startState: () => ({
+      tokenize: inText,
+      cc: [],
+      indented: 0,
+      startOfLine: true,
+      tagName: null,
+      tagStart: null,
+      context: null
+    }),
 
     token: function(stream, state) {
       if (!state.tagName && stream.sol()) {

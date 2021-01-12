@@ -51,7 +51,7 @@
           text = str.slice(pos, end);
           pos = end;
         }
-        text = text.replace(/\[\[|\]\]/g, function(s) {return s.charAt(0);});
+        text = text.replace(/\[\[|\]\]/g, s => s.charAt(0));
         tokens.push(style, text);
         plain += text;
       }
@@ -61,9 +61,7 @@
 
   test.mode = function(name, mode, tokens, modeName) {
     var data = parseTokens(tokens);
-    return test((modeName || mode.name) + "_" + name, function() {
-      return compare(data.plain, data.tokens, mode);
-    });
+    return test((modeName || mode.name) + "_" + name, () => compare(data.plain, data.tokens, mode));
   };
 
   function compare(text, expected, mode) {

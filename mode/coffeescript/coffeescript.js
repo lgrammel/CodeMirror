@@ -309,15 +309,13 @@ CodeMirror.defineMode('coffeescript', function(conf) {
     }
 
     var external = {
-        startState: function(basecolumn) {
-            return {
-              tokenize: tokenBase,
-              scopes: [{offset:basecolumn || 0, type:'coffee'}],
-              lastToken: null,
-              lambda: false,
-              dedent: 0
-          };
-        },
+        startState: basecolumn => ({
+            tokenize: tokenBase,
+            scopes: [{offset:basecolumn || 0, type:'coffee'}],
+            lastToken: null,
+            lambda: false,
+            dedent: 0
+        }),
 
         token: function(stream, state) {
             var style = tokenLexer(stream, state);

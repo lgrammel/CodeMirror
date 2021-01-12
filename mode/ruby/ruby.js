@@ -192,14 +192,14 @@ CodeMirror.defineMode("ruby", function(config) {
   }
 
   return {
-    startState: function() {
-      return {tokenize: [tokenBase],
-              indented: 0,
-              context: {type: "top", indented: -config.indentUnit},
-              continuedLine: false,
-              lastTok: null,
-              varList: false};
-    },
+    startState: () => ({
+      tokenize: [tokenBase],
+      indented: 0,
+      context: {type: "top", indented: -config.indentUnit},
+      continuedLine: false,
+      lastTok: null,
+      varList: false
+    }),
 
     token: function(stream, state) {
       if (stream.sol()) state.indented = stream.indentation();

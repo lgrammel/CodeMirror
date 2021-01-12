@@ -118,12 +118,10 @@ CodeMirror.defineMode("pig", function(_config, parserConfig) {
 
   // Interface
   return {
-    startState: function() {
-      return {
-        tokenize: tokenBase,
-        startOfLine: true
-      };
-    },
+    startState: () => ({
+      tokenize: tokenBase,
+      startOfLine: true
+    }),
 
     token: function(stream, state) {
       if(stream.eatSpace()) return null;

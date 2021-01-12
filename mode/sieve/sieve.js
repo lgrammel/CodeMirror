@@ -152,11 +152,11 @@ CodeMirror.defineMode("sieve", function(config) {
   }
 
   return {
-    startState: function(base) {
-      return {tokenize: tokenBase,
-              baseIndent: base || 0,
-              _indent: []};
-    },
+    startState: base => ({
+      tokenize: tokenBase,
+      baseIndent: base || 0,
+      _indent: []
+    }),
 
     token: function(stream, state) {
       if (stream.eatSpace())

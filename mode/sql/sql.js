@@ -148,9 +148,10 @@ CodeMirror.defineMode("sql", function(config, parserConfig) {
   }
 
   return {
-    startState: function() {
-      return {tokenize: tokenBase, context: null};
-    },
+    startState: () => ({
+      tokenize: tokenBase,
+      context: null
+    }),
 
     token: function(stream, state) {
       if (stream.sol()) {

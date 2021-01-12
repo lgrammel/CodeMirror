@@ -42,7 +42,7 @@
   }
 
   function pigHint(editor) {
-    return scriptHint(editor, pigKeywordsU, function (e, cur) {return e.getTokenAt(cur);});
+    return scriptHint(editor, pigKeywordsU, (e, cur) => e.getTokenAt(cur));
   }
   CodeMirror.pigHint = pigHint; // deprecated
   CodeMirror.registerHelper("hint", "pig", hinter);

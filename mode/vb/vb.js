@@ -218,17 +218,13 @@ CodeMirror.defineMode("vb", function(conf, parserConf) {
 
     var external = {
         electricChars:"dDpPtTfFeE ",
-        startState: function() {
-            return {
-              tokenize: tokenBase,
-              lastToken: null,
-              currentIndent: 0,
-              nextLineIndent: 0,
-              doInCurrentLine: false
-
-
-          };
-        },
+        startState: () => ({
+            tokenize: tokenBase,
+            lastToken: null,
+            currentIndent: 0,
+            nextLineIndent: 0,
+            doInCurrentLine: false
+        }),
 
         token: function(stream, state) {
             if (stream.sol()) {

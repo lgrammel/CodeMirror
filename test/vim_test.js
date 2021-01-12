@@ -166,9 +166,7 @@ function testVim(name, run, opts, expectedFail) {
       }
     }
     function fakeOpenDialog(result) {
-      return function(text, callback) {
-        return callback(result);
-      }
+      return (text, callback) => callback(result);
     }
     var helpers = {
       doKeys: doKeysFn(cm),
@@ -179,9 +177,7 @@ function testVim(name, run, opts, expectedFail) {
       doEx: doExFn(cm),
       assertCursorAt: assertCursorAtFn(cm),
       fakeOpenDialog: fakeOpenDialog,
-      getRegisterController: function() {
-        return CodeMirror.Vim.getRegisterController();
-      }
+      getRegisterController: () => CodeMirror.Vim.getRegisterController()
     }
     CodeMirror.Vim.resetVimGlobalState_();
     var successful = false;
@@ -1942,9 +1938,7 @@ var zVals = ['zb','zz','zt','z-','z.','z<CR>'].map(function(e, idx){
     cm.setCursor(lineNum, 0);
     helpers.doKeys(k1, k2);
     zVals[idx] = cm.getScrollInfo().top;
-  }, { value: (function(){
-    return new Array(500).join('\n');
-  })()});
+  }, { value: ((() => new Array(500).join('\n')))()});
 });
 testVim('zb<zz', function(cm, vim, helpers){
   eq(zVals[0]<zVals[1], true);
@@ -2227,7 +2221,7 @@ function testSubstituteConfirm(name, command, initialValue, expectedValue, keys,
     recordedCallback(command);
     // The event should really use keyCode, but here just mock it out and use
     // key and replace keyName to just return key.
-    CodeMirror.keyName = function (e) { return e.key; }
+    CodeMirror.keyName = e => e.key
     keys = keys.toUpperCase();
     for (var i = 0; i < keys.length; i++) {
       is(!closed);

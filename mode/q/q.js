@@ -68,13 +68,13 @@ CodeMirror.defineMode("q",function(config){
   }
   function pushContext(state,type,col){state.context={prev:state.context,indent:state.indent,col:col,type:type};}
   function popContext(state){state.indent=state.context.indent;state.context=state.context.prev;}
-  return{
-    startState:function(){
-      return{tokenize:tokenBase,
-             context:null,
-             indent:0,
-             col:0};
-    },
+  return {
+    startState:() => ({
+      tokenize:tokenBase,
+      context:null,
+      indent:0,
+      col:0
+    }),
     token:function(stream,state){
       if(stream.sol()){
         if(state.context&&state.context.align==null)

@@ -83,17 +83,15 @@ CodeMirror.defineMode("smartymixed", function(config) {
       return helpers.maybeBackup(stream, settings.rightDelimiter, smartyMode.token(stream, state.localState));
     },
 
-    inBlock: function(style, terminator) {
-      return function(stream, state) {
-        while (!stream.eol()) {
-          if (stream.match(terminator)) {
-            helpers.cleanChain(stream, state, "");
-            break;
-          }
-          stream.next();
+    inBlock: (style, terminator) => function(stream, state) {
+      while (!stream.eol()) {
+        if (stream.match(terminator)) {
+          helpers.cleanChain(stream, state, "");
+          break;
         }
-        return style;
-      };
+        stream.next();
+      }
+      return style;
     }
   };
 
@@ -156,12 +154,10 @@ CodeMirror.defineMode("smartymixed", function(config) {
 
     electricChars: "/{}:",
 
-    innerMode: function(state) {
-      return {
-        state: state.localState || state.htmlMixedState,
-        mode: state.localMode || htmlMixedMode
-      };
-    }
+    innerMode: state => ({
+      state: state.localState || state.htmlMixedState,
+      mode: state.localMode || htmlMixedMode
+    })
   };
 },
 "htmlmixed");

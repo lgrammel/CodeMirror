@@ -152,47 +152,41 @@ CodeMirror.defineMode("smarty", function(config) {
       }
     },
 
-    inAttribute: function(quote) {
-      return function(stream, state) {
-        var prevChar = null;
-        var currChar = null;
-        while (!stream.eol()) {
-          currChar = stream.peek();
-          if (stream.next() == quote && prevChar !== '\\') {
-            state.tokenize = parsers.smarty;
-            break;
-          }
-          prevChar = currChar;
+    inAttribute: quote => function(stream, state) {
+      var prevChar = null;
+      var currChar = null;
+      while (!stream.eol()) {
+        currChar = stream.peek();
+        if (stream.next() == quote && prevChar !== '\\') {
+          state.tokenize = parsers.smarty;
+          break;
         }
-        return "string";
-      };
+        prevChar = currChar;
+      }
+      return "string";
     },
 
-    inBlock: function(style, terminator) {
-      return function(stream, state) {
-        while (!stream.eol()) {
-          if (stream.match(terminator)) {
-            state.tokenize = parsers.tokenizer;
-            break;
-          }
-          stream.next();
+    inBlock: (style, terminator) => function(stream, state) {
+      while (!stream.eol()) {
+        if (stream.match(terminator)) {
+          state.tokenize = parsers.tokenizer;
+          break;
         }
-        return style;
-      };
+        stream.next();
+      }
+      return style;
     }
   };
 
 
   // the public API for CodeMirror
   return {
-    startState: function() {
-      return {
-        tokenize: parsers.tokenizer,
-        mode: "smarty",
-        last: null,
-        depth: 0
-      };
-    },
+    startState: () => ({
+      tokenize: parsers.tokenizer,
+      mode: "smarty",
+      last: null,
+      depth: 0
+    }),
     token: function(stream, state) {
       var style = state.tokenize(stream, state);
       state.last = last;

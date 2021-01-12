@@ -80,9 +80,7 @@ CodeMirror.defineMode("htmlmixed", function(config, parserConfig) {
               htmlState: CodeMirror.copyState(htmlMode, state.htmlState)};
     },
 
-    token: function(stream, state) {
-      return state.token(stream, state);
-    },
+    token: (stream, state) => state.token(stream, state),
 
     indent: function(state, textAfter) {
       if (!state.localMode || /^\s*<\//.test(textAfter))
@@ -95,9 +93,10 @@ CodeMirror.defineMode("htmlmixed", function(config, parserConfig) {
 
     electricChars: "/{}:",
 
-    innerMode: function(state) {
-      return {state: state.localState || state.htmlState, mode: state.localMode || htmlMode};
-    }
+    innerMode: state => ({
+      state: state.localState || state.htmlState,
+      mode: state.localMode || htmlMode
+    })
   };
 }, "xml", "javascript", "css");
 

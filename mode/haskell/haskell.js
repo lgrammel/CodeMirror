@@ -231,8 +231,12 @@ CodeMirror.defineMode("haskell", function(_config, modeConfig) {
 
 
   return {
-    startState: function ()  { return { f: normal }; },
-    copyState:  function (s) { return { f: s.f }; },
+    startState: () => ({
+      f: normal
+    }),
+    copyState:  s => ({
+      f: s.f
+    }),
 
     token: function(stream, state) {
       var t = state.f(stream, function(s) { state.f = s; });

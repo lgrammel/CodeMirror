@@ -162,13 +162,11 @@ CodeMirror.defineMode("mirc", function() {
     return "meta";
   }
   return {
-    startState: function() {
-      return {
-        tokenize: tokenBase,
-        beforeParams: false,
-        inParams: false
-      };
-    },
+    startState: () => ({
+      tokenize: tokenBase,
+      beforeParams: false,
+      inParams: false
+    }),
     token: function(stream, state) {
       if (stream.eatSpace()) return null;
       return state.tokenize(stream, state);

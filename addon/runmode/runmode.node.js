@@ -37,10 +37,10 @@ StringStream.prototype = {
   },
   backUp: function(n) {this.pos -= n;},
   column: function() {return this.start;},
-  indentation: function() {return 0;},
+  indentation: () => 0,
   match: function(pattern, consume, caseInsensitive) {
     if (typeof pattern == "string") {
-      var cased = function(str) {return caseInsensitive ? str.toLowerCase() : str;};
+      var cased = str => caseInsensitive ? str.toLowerCase() : str;
       var substr = this.string.substr(this.pos, pattern.length);
       if (cased(substr) == cased(pattern)) {
         if (consume !== false) this.pos += pattern.length;
@@ -57,9 +57,7 @@ StringStream.prototype = {
 };
 exports.StringStream = StringStream;
 
-exports.startState = function(mode, a1, a2) {
-  return mode.startState ? mode.startState(a1, a2) : true;
-};
+exports.startState = (mode, a1, a2) => mode.startState ? mode.startState(a1, a2) : true;
 
 var modes = exports.modes = {}, mimeModes = exports.mimeModes = {};
 exports.defineMode = function(name, mode) {
@@ -71,9 +69,9 @@ exports.defineMode = function(name, mode) {
 };
 exports.defineMIME = function(mime, spec) { mimeModes[mime] = spec; };
 
-exports.defineMode("null", function() {
-  return {token: function(stream) {stream.skipToEnd();}};
-});
+exports.defineMode("null", () => ({
+  token: function(stream) {stream.skipToEnd();}
+}));
 exports.defineMIME("text/plain", "null");
 
 exports.getMode = function(options, spec) {

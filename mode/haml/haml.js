@@ -97,15 +97,13 @@
         };
       },
 
-      copyState: function(state) {
-        return {
-          htmlState : CodeMirror.copyState(htmlMode, state.htmlState),
-          rubyState: CodeMirror.copyState(rubyMode, state.rubyState),
-          indented: state.indented,
-          previousToken: state.previousToken,
-          tokenize: state.tokenize
-        };
-      },
+      copyState: state => ({
+        htmlState : CodeMirror.copyState(htmlMode, state.htmlState),
+        rubyState: CodeMirror.copyState(rubyMode, state.rubyState),
+        indented: state.indented,
+        previousToken: state.previousToken,
+        tokenize: state.tokenize
+      }),
 
       token: function(stream, state) {
         if (stream.sol()) {
@@ -143,9 +141,7 @@
         return style;
       },
 
-      indent: function(state) {
-        return state.indented;
-      }
+      indent: state => state.indented
     };
   }, "htmlmixed", "ruby");
 

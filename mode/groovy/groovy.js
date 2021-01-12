@@ -144,15 +144,13 @@ CodeMirror.defineMode("groovy", function(config) {
   // Interface
 
   return {
-    startState: function(basecolumn) {
-      return {
-        tokenize: [tokenBase],
-        context: new Context((basecolumn || 0) - config.indentUnit, 0, "top", false),
-        indented: 0,
-        startOfLine: true,
-        lastToken: null
-      };
-    },
+    startState: basecolumn => ({
+      tokenize: [tokenBase],
+      context: new Context((basecolumn || 0) - config.indentUnit, 0, "top", false),
+      indented: 0,
+      startOfLine: true,
+      lastToken: null
+    }),
 
     token: function(stream, state) {
       var ctx = state.context;

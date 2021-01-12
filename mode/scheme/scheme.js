@@ -54,14 +54,12 @@ CodeMirror.defineMode("scheme", function () {
     }
 
     return {
-        startState: function () {
-            return {
-                indentStack: null,
-                indentation: 0,
-                mode: false,
-                sExprComment: false
-            };
-        },
+        startState: () => ({
+            indentStack: null,
+            indentation: 0,
+            mode: false,
+            sExprComment: false
+        }),
 
         token: function (stream, state) {
             if (state.indentStack == null && stream.sol()) {

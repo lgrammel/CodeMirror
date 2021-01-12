@@ -766,15 +766,14 @@ stream.eatSuffix(2);
                                 return "meta";}
                 return null;}
 
-        return{
-                startState:function(){
-                        return{
-                                tokenize:tokenPerl,
-                                chain:null,
-                                style:null,
-                                tail:null};},
-                token:function(stream,state){
-                        return (state.tokenize||tokenPerl)(stream,state);},
+        return {
+                startState:() => ({
+                        tokenize:tokenPerl,
+                        chain:null,
+                        style:null,
+                        tail:null
+                }),
+                token:(stream, state) => (state.tokenize||tokenPerl)(stream,state),
                 electricChars:"{}"};});
 
 CodeMirror.defineMIME("text/x-perl", "perl");

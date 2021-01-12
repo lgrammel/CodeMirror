@@ -110,16 +110,14 @@ CodeMirror.defineMode("asterisk", function() {
   }
 
   return {
-    startState: function() {
-      return {
-        extenStart: false,
-        extenSame:  false,
-        extenInclude: false,
-        extenExten: false,
-        extenPriority: false,
-        extenApplication: false
-      };
-    },
+    startState: () => ({
+      extenStart: false,
+      extenSame:  false,
+      extenInclude: false,
+      extenExten: false,
+      extenPriority: false,
+      extenApplication: false
+    }),
     token: function(stream, state) {
 
       var cur = '';

@@ -452,29 +452,30 @@
       };
     };
 
-    var createMacroState = function() {
-      return {
-        macroKeyBuffer: [],
-        latestRegister: undefined,
-        inReplay: false,
-        lastInsertModeChanges: {
-          changes: [], // Change list
-          expectCursorActivityForChange: false // Set to true on change, false on cursorActivity.
-        },
-        enteredMacroMode: undefined,
-        isMacroPlaying: false,
-        toggle: function(cm, registerName) {
-          if (this.enteredMacroMode) { //onExit
-            this.enteredMacroMode(); // close dialog
-            this.enteredMacroMode = undefined;
-          } else { //onEnter
-            this.latestRegister = registerName;
-            this.enteredMacroMode = cm.openDialog(
-              '(recording)['+registerName+']', null, {bottom:true});
-          }
+    var createMacroState = () => ({
+      macroKeyBuffer: [],
+      latestRegister: undefined,
+      inReplay: false,
+
+      lastInsertModeChanges: {
+        changes: [], // Change list
+        expectCursorActivityForChange: false // Set to true on change, false on cursorActivity.
+      },
+
+      enteredMacroMode: undefined,
+      isMacroPlaying: false,
+
+      toggle: function(cm, registerName) {
+        if (this.enteredMacroMode) { //onExit
+          this.enteredMacroMode(); // close dialog
+          this.enteredMacroMode = undefined;
+        } else { //onEnter
+          this.latestRegister = registerName;
+          this.enteredMacroMode = cm.openDialog(
+            '(recording)['+registerName+']', null, {bottom:true});
         }
-      };
-    };
+      }
+    });
 
 
     function maybeInitVimState(cm) {
@@ -532,16 +533,12 @@
       },
       // Testing hook, though it might be useful to expose the register
       // controller anyways.
-      getRegisterController: function() {
-        return vimGlobalState.registerController;
-      },
+      getRegisterController: () => vimGlobalState.registerController,
       // Testing hook.
       resetVimGlobalState_: resetVimGlobalState,
 
       // Testing hook.
-      getVimGlobalState_: function() {
-        return vimGlobalState;
-      },
+      getVimGlobalState_: () => vimGlobalState,
 
       // Testing hook.
       maybeInitVimState_: maybeInitVimState,
@@ -752,9 +749,7 @@
         }
         return this.registers[name];
       },
-      isValidRegister: function(name) {
-        return name && inArray(name, validRegisters);
-      },
+      isValidRegister: name => name && inArray(name, validRegisters),
       shiftNumericRegisters_: function() {
         for (var i = 9; i >= 2; i--) {
           this.registers[i] = this.getRegister('' + (i - 1));
@@ -1380,10 +1375,8 @@
         cm.scrollTo(null, scrollbox.top + dest.top - orig.top);
         return curEnd;
       },
-      moveByWords: function(cm, motionArgs) {
-        return moveToWord(cm, motionArgs.repeat, !!motionArgs.forward,
-            !!motionArgs.wordEnd, !!motionArgs.bigWord);
-      },
+      moveByWords: (cm, motionArgs) => moveToWord(cm, motionArgs.repeat, !!motionArgs.forward,
+          !!motionArgs.wordEnd, !!motionArgs.bigWord),
       moveTillCharacter: function(cm, motionArgs) {
         var repeat = motionArgs.repeat;
         var curEnd = moveToCharacter(cm, repeat, motionArgs.forward,
@@ -1915,29 +1908,15 @@
       //     outside of a () block.
       // TODO: implement text objects for the reverse like }. Should just be
       //     an additional mapping after moving to the defaultKeyMap.
-      'w': function(cm, inclusive) {
-        return expandWordUnderCursor(cm, inclusive, true /** forward */,
-            false /** bigWord */);
-      },
-      'W': function(cm, inclusive) {
-        return expandWordUnderCursor(cm, inclusive,
-            true /** forward */, true /** bigWord */);
-      },
-      '{': function(cm, inclusive) {
-        return selectCompanionObject(cm, '}', inclusive);
-      },
-      '(': function(cm, inclusive) {
-        return selectCompanionObject(cm, ')', inclusive);
-      },
-      '[': function(cm, inclusive) {
-        return selectCompanionObject(cm, ']', inclusive);
-      },
-      '\'': function(cm, inclusive) {
-        return findBeginningAndEnd(cm, "'", inclusive);
-      },
-      '"': function(cm, inclusive) {
-        return findBeginningAndEnd(cm, '"', inclusive);
-      }
+      'w': (cm, inclusive) => expandWordUnderCursor(cm, inclusive, true /** forward */,
+          false /** bigWord */),
+      'W': (cm, inclusive) => expandWordUnderCursor(cm, inclusive,
+          true /** forward */, true /** bigWord */),
+      '{': (cm, inclusive) => selectCompanionObject(cm, '}', inclusive),
+      '(': (cm, inclusive) => selectCompanionObject(cm, ')', inclusive),
+      '[': (cm, inclusive) => selectCompanionObject(cm, ']', inclusive),
+      '\'': (cm, inclusive) => findBeginningAndEnd(cm, "'", inclusive),
+      '"': (cm, inclusive) => findBeginningAndEnd(cm, '"', inclusive)
     };
 
     /*
@@ -2181,9 +2160,7 @@
           state.curMoveThrough = true;
           state.symb = (state.forward ? ']' : '[') === state.symb ? '{' : '}';
         },
-        isComplete: function(state) {
-          return state.index === 0 && state.nextCh === state.symb;
-        }
+        isComplete: state => state.index === 0 && state.nextCh === state.symb
       },
       comment: {
         isComplete: function(state) {
@@ -2604,9 +2581,7 @@
     // Search functions
     function SearchState() {}
     SearchState.prototype = {
-      getQuery: function() {
-        return vimGlobalState.query;
-      },
+      getQuery: () => vimGlobalState.query,
       setQuery: function(query) {
         vimGlobalState.query = query;
       },
@@ -2616,9 +2591,7 @@
       setOverlay: function(overlay) {
         this.searchOverlay = overlay;
       },
-      isReversed: function() {
-        return vimGlobalState.isReversed;
-      },
+      isReversed: () => vimGlobalState.isReversed,
       setReversed: function(reversed) {
         vimGlobalState.isReversed = reversed;
       }

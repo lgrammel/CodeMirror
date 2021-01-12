@@ -1188,12 +1188,8 @@ testCM("lineChangeEvents", function(cm) {
   addDoc(cm, 3, 5);
   var log = [], want = ["ch 0", "ch 1", "del 2", "ch 0", "ch 0", "del 1", "del 3", "del 4"];
   for (var i = 0; i < 5; ++i) {
-    CodeMirror.on(cm.getLineHandle(i), "delete", function(i) {
-      return function() {log.push("del " + i);};
-    }(i));
-    CodeMirror.on(cm.getLineHandle(i), "change", function(i) {
-      return function() {log.push("ch " + i);};
-    }(i));
+    CodeMirror.on(cm.getLineHandle(i), "delete", (i => function() {log.push("del " + i);})(i));
+    CodeMirror.on(cm.getLineHandle(i), "change", (i => function() {log.push("ch " + i);})(i));
   }
   cm.replaceRange("x", Pos(0, 1));
   cm.replaceRange("xy", Pos(1, 1), Pos(2));
@@ -1541,13 +1537,13 @@ testCM("change_removedText", function(cm) {
 });
 
 testCM("lineStyleFromMode", function(cm) {
-  CodeMirror.defineMode("test_mode", function() {
-    return {token: function(stream) {
+  CodeMirror.defineMode("test_mode", () => ({
+    token: function(stream) {
       if (stream.match(/^\[[^\]]*\]/)) return "line-brackets";
       if (stream.match(/^\([^\]]*\)/)) return "line-background-parens";
       stream.match(/^\s+|^\S+/);
-    }};
-  });
+    }
+  }));
   cm.setOption("mode", "test_mode");
   var bracketElts = byClassName(cm.getWrapperElement(), "brackets");
   eq(bracketElts.length, 1);

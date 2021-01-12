@@ -123,7 +123,7 @@
     function addBinding(key, val) {
       var bound;
       if (typeof val != "string")
-        bound = function(cm) { return val(cm, handle); };
+        bound = cm => val(cm, handle);
       // This mechanism is deprecated
       else if (baseMap.hasOwnProperty(val))
         bound = baseMap[val];
@@ -192,7 +192,7 @@
     cm.addKeyMap(this.keyMap = buildKeyMap(options, {
       moveFocus: function(n, avoidWrap) { widget.changeActive(widget.selectedHint + n, avoidWrap); },
       setFocus: function(n) { widget.changeActive(n); },
-      menuSize: function() { return widget.screenAmount(); },
+      menuSize: () => widget.screenAmount(),
       length: completions.length,
       close: function() { completion.close(); },
       pick: function() { widget.pick(); }

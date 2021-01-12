@@ -119,11 +119,11 @@ CodeMirror.defineMode("nginx", function(config) {
   }
 
   return {
-    startState: function(base) {
-      return {tokenize: tokenBase,
-              baseIndent: base || 0,
-              stack: []};
-    },
+    startState: base => ({
+      tokenize: tokenBase,
+      baseIndent: base || 0,
+      stack: []
+    }),
 
     token: function(stream, state) {
       if (stream.eatSpace()) return null;

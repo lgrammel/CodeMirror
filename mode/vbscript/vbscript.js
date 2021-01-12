@@ -292,18 +292,14 @@ CodeMirror.defineMode("vbscript", function(conf, parserConf) {
 
     var external = {
         electricChars:"dDpPtTfFeE ",
-        startState: function() {
-            return {
-              tokenize: tokenBase,
-              lastToken: null,
-              currentIndent: 0,
-              nextLineIndent: 0,
-              doInCurrentLine: false,
-              ignoreKeyword: false
-
-
-          };
-        },
+        startState: () => ({
+            tokenize: tokenBase,
+            lastToken: null,
+            currentIndent: 0,
+            nextLineIndent: 0,
+            doInCurrentLine: false,
+            ignoreKeyword: false
+        }),
 
         token: function(stream, state) {
             if (stream.sol()) {

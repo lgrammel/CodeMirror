@@ -122,7 +122,10 @@
       blockCommentEnd: "*/",
       lineComment: "//",
 
-      innerMode: function(state) { return {state: state.curState, mode: state.curMode}; }
+      innerMode: state => ({
+        state: state.curState,
+        mode: state.curMode
+      })
     };
   }, "htmlmixed", "clike");
 

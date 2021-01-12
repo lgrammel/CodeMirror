@@ -80,17 +80,15 @@ CodeMirror.defineMode("yaml", function() {
       stream.next();
       return null;
     },
-    startState: function() {
-      return {
-        pair: false,
-        pairStart: false,
-        keyCol: 0,
-        inlinePairs: 0,
-        inlineList: 0,
-        literal: false,
-        escaped: false
-      };
-    }
+    startState: () => ({
+      pair: false,
+      pairStart: false,
+      keyCol: 0,
+      inlinePairs: 0,
+      inlineList: 0,
+      literal: false,
+      escaped: false
+    })
   };
 });
 

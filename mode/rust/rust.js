@@ -389,15 +389,13 @@ CodeMirror.defineMode("rust", function() {
   }
 
   return {
-    startState: function() {
-      return {
-        tokenize: tokenBase,
-        cc: [],
-        lexical: {indented: -indentUnit, column: 0, type: "top", align: false},
-        keywords: valKeywords,
-        indented: 0
-      };
-    },
+    startState: () => ({
+      tokenize: tokenBase,
+      cc: [],
+      lexical: {indented: -indentUnit, column: 0, type: "top", align: false},
+      keywords: valKeywords,
+      indented: 0
+    }),
 
     token: function(stream, state) {
       if (stream.sol()) {

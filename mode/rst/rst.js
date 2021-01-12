@@ -5,9 +5,7 @@ CodeMirror.defineMode('rst-base', function (config) {
 
     function format(string) {
         var args = Array.prototype.slice.call(arguments, 1);
-        return string.replace(/{(\d+)}/g, function (match, n) {
-            return typeof args[n] != 'undefined' ? args[n] : match;
-        });
+        return string.replace(/{(\d+)}/g, (match, n) => typeof args[n] != 'undefined' ? args[n] : match);
     }
 
     function AssertException(message) {
@@ -472,23 +470,21 @@ CodeMirror.defineMode('rst-base', function (config) {
     ///////////////////////////////////////////////////////////////////////////
 
     return {
-        startState: function () {
-            return {tok: to_normal, ctx: context(undefined, 0)};
-        },
+        startState: () => ({
+            tok: to_normal,
+            ctx: context(undefined, 0)
+        }),
 
-        copyState: function (state) {
-            return {tok: state.tok, ctx: state.ctx};
-        },
+        copyState: state => ({
+            tok: state.tok,
+            ctx: state.ctx
+        }),
 
-        innerMode: function (state) {
-            return state.tmp ? {state: state.tmp.local, mode: state.tmp.mode}
-                 : state.ctx ? {state: state.ctx.local, mode: state.ctx.mode}
-                             : null;
-        },
+        innerMode: state => state.tmp ? {state: state.tmp.local, mode: state.tmp.mode}
+             : state.ctx ? {state: state.ctx.local, mode: state.ctx.mode}
+                         : null,
 
-        token: function (stream, state) {
-            return state.tok(stream, state);
-        }
+        token: (stream, state) => state.tok(stream, state)
     };
 }, 'python', 'stex');
 

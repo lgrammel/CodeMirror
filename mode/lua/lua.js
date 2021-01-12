@@ -110,9 +110,11 @@ CodeMirror.defineMode("lua", function(config, parserConfig) {
   }
 
   return {
-    startState: function(basecol) {
-      return {basecol: basecol || 0, indentDepth: 0, cur: normal};
-    },
+    startState: basecol => ({
+      basecol: basecol || 0,
+      indentDepth: 0,
+      cur: normal
+    }),
 
     token: function(stream, state) {
       if (stream.eatSpace()) return null;

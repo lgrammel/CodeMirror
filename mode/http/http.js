@@ -89,9 +89,9 @@ CodeMirror.defineMode("http", function() {
       state.cur = body;
     },
 
-    startState: function() {
-      return {cur: start};
-    }
+    startState: () => ({
+      cur: start
+    })
   };
 });
 
