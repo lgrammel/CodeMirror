@@ -39,10 +39,10 @@ StringStream.prototype = {
   },
   backUp: function(n) {this.pos -= n;},
   column: function() {return this.start;},
-  indentation: function() {return 0;},
+  indentation: () => 0,
   match: function(pattern, consume, caseInsensitive) {
     if (typeof pattern == "string") {
-      var cased = function(str) {return caseInsensitive ? str.toLowerCase() : str;};
+      var cased = str => caseInsensitive ? str.toLowerCase() : str;
       var substr = this.string.substr(this.pos, pattern.length);
       if (cased(substr) == cased(pattern)) {
         if (consume !== false) this.pos += pattern.length;
@@ -59,9 +59,7 @@ StringStream.prototype = {
 };
 CodeMirror.StringStream = StringStream;
 
-CodeMirror.startState = function (mode, a1, a2) {
-  return mode.startState ? mode.startState(a1, a2) : true;
-};
+CodeMirror.startState = (mode, a1, a2) => mode.startState ? mode.startState(a1, a2) : true;
 
 var modes = CodeMirror.modes = {}, mimeModes = CodeMirror.mimeModes = {};
 CodeMirror.defineMode = function (name, mode) { modes[name] = mode; };

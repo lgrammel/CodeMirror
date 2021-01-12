@@ -39,9 +39,7 @@ CodeMirror.defineMode("htmlembedded", function(config, parserConfig) {
       };
     },
 
-    token: function(stream, state) {
-      return state.token(stream, state);
-    },
+    token: (stream, state) => state.token(stream, state),
 
     indent: function(state, textAfter) {
       if (state.token == htmlDispatch)
@@ -50,13 +48,11 @@ CodeMirror.defineMode("htmlembedded", function(config, parserConfig) {
         return scriptingMode.indent(state.scriptState, textAfter);
     },
 
-    copyState: function(state) {
-      return {
-       token : state.token,
-       htmlState : CodeMirror.copyState(htmlMixedMode, state.htmlState),
-       scriptState : CodeMirror.copyState(scriptingMode, state.scriptState)
-      };
-    },
+    copyState: state => ({
+      token : state.token,
+      htmlState : CodeMirror.copyState(htmlMixedMode, state.htmlState),
+      scriptState : CodeMirror.copyState(scriptingMode, state.scriptState)
+    }),
 
     electricChars: "/{}:",
 

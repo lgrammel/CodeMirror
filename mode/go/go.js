@@ -113,14 +113,12 @@ CodeMirror.defineMode("go", function(config) {
   // Interface
 
   return {
-    startState: function(basecolumn) {
-      return {
-        tokenize: null,
-        context: new Context((basecolumn || 0) - indentUnit, 0, "top", false),
-        indented: 0,
-        startOfLine: true
-      };
-    },
+    startState: basecolumn => ({
+      tokenize: null,
+      context: new Context((basecolumn || 0) - indentUnit, 0, "top", false),
+      indented: 0,
+      startOfLine: true
+    }),
 
     token: function(stream, state) {
       var ctx = state.context;

@@ -331,13 +331,11 @@ CodeMirror.defineMode("tiddlywiki", function () {
 
   // Interface
   return {
-    startState: function () {
-      return {
-        tokenize: jsTokenBase,
-        indented: 0,
-        level: 0
-      };
-    },
+    startState: () => ({
+      tokenize: jsTokenBase,
+      indented: 0,
+      level: 0
+    }),
 
     token: function (stream, state) {
       if (stream.eatSpace()) return null;

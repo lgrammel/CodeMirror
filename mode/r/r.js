@@ -95,14 +95,16 @@ CodeMirror.defineMode("r", function(config) {
   }
 
   return {
-    startState: function() {
-      return {tokenize: tokenBase,
-              ctx: {type: "top",
-                    indent: -config.indentUnit,
-                    align: false},
-              indent: 0,
-              afterIdent: false};
-    },
+    startState: () => ({
+      tokenize: tokenBase,
+
+      ctx: {type: "top",
+            indent: -config.indentUnit,
+            align: false},
+
+      indent: 0,
+      afterIdent: false
+    }),
 
     token: function(stream, state) {
       if (stream.sol()) {

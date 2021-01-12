@@ -35,7 +35,7 @@ CodeMirror.defineMode("stex", function() {
             }
             return plug;
         }
-        return { styleIdentifier: function() { return null; } };
+        return { styleIdentifier: () => null };
     }
 
     function addPluginPattern(pluginName, cmdStyle, styles) {
@@ -101,15 +101,15 @@ CodeMirror.defineMode("stex", function() {
 
         // find if we're starting various math modes
         if (source.match("\\[")) {
-            setState(state, function(source, state){ return inMathMode(source, state, "\\]"); });
+            setState(state, (source, state) => inMathMode(source, state, "\\]"));
             return "keyword";
         }
         if (source.match("$$")) {
-            setState(state, function(source, state){ return inMathMode(source, state, "$$"); });
+            setState(state, (source, state) => inMathMode(source, state, "$$"));
             return "keyword";
         }
         if (source.match("$")) {
-            setState(state, function(source, state){ return inMathMode(source, state, "$"); });
+            setState(state, (source, state) => inMathMode(source, state, "$"));
             return "keyword";
         }
 
@@ -224,21 +224,15 @@ CodeMirror.defineMode("stex", function() {
     }
 
     return {
-        startState: function() {
-            return {
-                cmdState: [],
-                f: normal
-            };
-        },
-        copyState: function(s) {
-            return {
-                cmdState: s.cmdState.slice(),
-                f: s.f
-            };
-        },
-        token: function(stream, state) {
-            return state.f(stream, state);
-        }
+        startState: () => ({
+            cmdState: [],
+            f: normal
+        }),
+        copyState: s => ({
+            cmdState: s.cmdState.slice(),
+            f: s.f
+        }),
+        token: (stream, state) => state.f(stream, state)
     };
 });
 

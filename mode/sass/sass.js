@@ -1,7 +1,5 @@
 CodeMirror.defineMode("sass", function(config) {
-  var tokenRegexp = function(words){
-    return new RegExp("^" + words.join("|"));
-  };
+  var tokenRegexp = words => new RegExp("^" + words.join("|"));
 
   var keywords = ["true", "false", "null", "auto"];
   var keywordsRegexp = new RegExp("^" + keywords.join("|"));
@@ -76,16 +74,14 @@ CodeMirror.defineMode("sass", function(config) {
     return stringTokenizer;
   };
 
-  var buildInterpolationTokenizer = function(currentTokenizer){
-    return function(stream, state){
-      if (stream.peek() === "}"){
-        stream.next();
-        state.tokenizer = currentTokenizer;
-        return "operator";
-      }else{
-        return tokenBase(stream, state);
-      }
-    };
+  var buildInterpolationTokenizer = currentTokenizer => function(stream, state){
+    if (stream.peek() === "}"){
+      stream.next();
+      state.tokenizer = currentTokenizer;
+      return "operator";
+    }else{
+      return tokenBase(stream, state);
+    }
   };
 
   var indent = function(state){
@@ -305,14 +301,12 @@ CodeMirror.defineMode("sass", function(config) {
   };
 
   return {
-    startState: function() {
-      return {
-        tokenizer: tokenBase,
-        scopes: [{offset: 0, type: 'sass'}],
-        definedVars: [],
-        definedMixins: []
-      };
-    },
+    startState: () => ({
+      tokenizer: tokenBase,
+      scopes: [{offset: 0, type: 'sass'}],
+      definedVars: [],
+      definedMixins: []
+    }),
     token: function(stream, state) {
       var style = tokenLexer(stream, state);
 
@@ -321,9 +315,7 @@ CodeMirror.defineMode("sass", function(config) {
       return style;
     },
 
-    indent: function(state) {
-      return state.scopes[0].offset;
-    }
+    indent: state => state.scopes[0].offset
   };
 });
 

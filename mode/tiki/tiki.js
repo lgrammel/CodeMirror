@@ -269,9 +269,14 @@ function attvaluemaybe(type) {
   else return pass();
 }
 return {
-  startState: function() {
-    return {tokenize: inText, cc: [], indented: 0, startOfLine: true, pluginName: null, context: null};
-  },
+  startState: () => ({
+    tokenize: inText,
+    cc: [],
+    indented: 0,
+    startOfLine: true,
+    pluginName: null,
+    context: null
+  }),
   token: function(stream, state) {
     if (stream.sol()) {
       state.startOfLine = true;

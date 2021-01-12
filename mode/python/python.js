@@ -312,16 +312,14 @@ CodeMirror.defineMode("python", function(conf, parserConf) {
     }
 
     var external = {
-        startState: function(basecolumn) {
-            return {
-              tokenize: tokenBase,
-              scopes: [{offset:basecolumn || 0, type:'py'}],
-              lastStyle: null,
-              lastToken: null,
-              lambda: false,
-              dedent: 0
-          };
-        },
+        startState: basecolumn => ({
+            tokenize: tokenBase,
+            scopes: [{offset:basecolumn || 0, type:'py'}],
+            lastStyle: null,
+            lastToken: null,
+            lambda: false,
+            dedent: 0
+        }),
 
         token: function(stream, state) {
             var style = tokenLexer(stream, state);
@@ -355,7 +353,7 @@ CodeMirror.defineMode("python", function(conf, parserConf) {
 
 CodeMirror.defineMIME("text/x-python", "python");
 
-var words = function(str){return str.split(' ');};
+var words = str => str.split(' ');
 
 
 CodeMirror.defineMIME("text/x-cython", {

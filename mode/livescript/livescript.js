@@ -34,12 +34,10 @@
       return 'error';
     };
     external = {
-      startState: function(){
-        return {
-          next: 'start',
-          lastToken: null
-        };
-      },
+      startState: () => ({
+        next: 'start',
+        lastToken: null
+      }),
       token: function(stream, state){
         var style;
         style = tokenBase(stream, state);

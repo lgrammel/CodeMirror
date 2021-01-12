@@ -8,9 +8,9 @@ CodeMirror.defineMode('z80', function() {
   var numbers = /^([\da-f]+h|[0-7]+o|[01]+b|\d+)\b/i;
 
   return {
-    startState: function() {
-      return {context: 0};
-    },
+    startState: () => ({
+      context: 0
+    }),
     token: function(stream, state) {
       if (!stream.column())
         state.context = 0;

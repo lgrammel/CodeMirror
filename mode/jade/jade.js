@@ -8,15 +8,13 @@ CodeMirror.defineMode("jade", function () {
   var html_regex1 = /^(html|head|title|meta|link|script|body|br|div|input|span|a|img)/;
   var html_regex2 = /^(h1|h2|h3|h4|h5|p|strong|em)/;
   return {
-    startState: function () {
-      return {
-        inString: false,
-        stringType: "",
-        beforeTag: true,
-        justMatchedKeyword: false,
-        afterParen: false
-      };
-    },
+    startState: () => ({
+      inString: false,
+      stringType: "",
+      beforeTag: true,
+      justMatchedKeyword: false,
+      afterParen: false
+    }),
     token: function (stream, state) {
       //check for state changes
       if (!state.inString && ((stream.peek() == '"') || (stream.peek() == "'"))) {

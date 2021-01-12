@@ -98,12 +98,12 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
   }
 
   return {
-    startState: function(base) {
-      return {tokenize: tokenBase,
-              baseIndent: base || 0,
-              stack: [],
-              lastToken: null};
-    },
+    startState: base => ({
+      tokenize: tokenBase,
+      baseIndent: base || 0,
+      stack: [],
+      lastToken: null
+    }),
 
     token: function(stream, state) {
 

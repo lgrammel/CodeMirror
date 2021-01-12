@@ -242,11 +242,9 @@ CodeMirror.defineMode("gas", function(_config, parserConfig) {
   }
 
   return {
-    startState: function() {
-      return {
-        tokenize: null
-      };
-    },
+    startState: () => ({
+      tokenize: null
+    }),
 
     token: function(stream, state) {
       if (state.tokenize) {

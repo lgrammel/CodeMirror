@@ -52,7 +52,7 @@
       this.server = new WorkerServer(this);
     } else {
       this.server = new tern.Server({
-        getFile: function(name, c) { return getFile(self, name, c); },
+        getFile: (name, c) => getFile(self, name, c),
         async: true,
         defs: this.options.defs || [],
         plugins: plugins
@@ -90,7 +90,7 @@
 
     complete: function(cm) {
       var self = this;
-      CodeMirror.showHint(cm, function(cm, c) { return hint(self, cm, c); }, {async: true});
+      CodeMirror.showHint(cm, (cm, c) => hint(self, cm, c), {async: true});
     },
 
     getHint: function(cm, c) { return hint(this, cm, c); },
@@ -438,7 +438,7 @@
     for (var file in perFile) {
       var known = ts.docs[file], chs = perFile[file];;
       if (!known) continue;
-      chs.sort(function(a, b) { return cmpPos(b, a); });
+      chs.sort((a, b) => cmpPos(b, a));
       var origin = "*rename" + (++nextChangeOrig);
       for (var i = 0; i < chs.length; ++i) {
         var ch = chs[i];

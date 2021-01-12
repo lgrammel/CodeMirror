@@ -58,7 +58,7 @@
 
   function javascriptHint(editor, options) {
     return scriptHint(editor, javascriptKeywords,
-                      function (e, cur) {return e.getTokenAt(cur);},
+                      (e, cur) => e.getTokenAt(cur),
                       options);
   };
   CodeMirror.javascriptHint = javascriptHint; // deprecated

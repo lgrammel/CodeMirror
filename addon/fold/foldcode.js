@@ -54,9 +54,7 @@
   }
 
   // Clumsy backwards-compatible interface
-  CodeMirror.newFoldFunction = function(rangeFinder, widget) {
-    return function(cm, pos) { doFold(cm, pos, {rangeFinder: rangeFinder, widget: widget}); };
-  };
+  CodeMirror.newFoldFunction = (rangeFinder, widget) => function(cm, pos) { doFold(cm, pos, {rangeFinder: rangeFinder, widget: widget}); };
 
   // New-style interface
   CodeMirror.defineExtension("foldCode", function(pos, options) { doFold(this, pos, options); });

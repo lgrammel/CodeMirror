@@ -32,11 +32,9 @@ CodeMirror.defineMode("jinja2", function() {
         };
     }
     return {
-        startState: function () {
-            return {tokenize: tokenBase};
-        },
-        token: function (stream, state) {
-            return state.tokenize(stream, state);
-        }
+        startState: () => ({
+            tokenize: tokenBase
+        }),
+        token: (stream, state) => state.tokenize(stream, state)
     };
 });

@@ -88,16 +88,14 @@ CodeMirror.defineMode("ntriples", function() {
   }
 
   return {
-    startState: function() {
-       return {
-           location : Location.PRE_SUBJECT,
-           uris     : [],
-           anchors  : [],
-           bnodes   : [],
-           langs    : [],
-           types    : []
-       };
-    },
+    startState: () => ({
+        location : Location.PRE_SUBJECT,
+        uris     : [],
+        anchors  : [],
+        bnodes   : [],
+        langs    : [],
+        types    : []
+    }),
     token: function(stream, state) {
       var ch = stream.next();
       if(ch == '<') {
@@ -131,7 +129,7 @@ CodeMirror.defineMode("ntriples", function() {
       }
       if(ch == '"') {
           transitState(state, ch);
-          stream.eatWhile( function(c) { return c != '"'; } );
+          stream.eatWhile( c => c != '"' );
           stream.next();
           if( stream.peek() != '@' && stream.peek() != '^' ) {
               transitState(state, '"');

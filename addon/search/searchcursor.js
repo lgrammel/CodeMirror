@@ -48,7 +48,7 @@
       };
     } else { // String query
       if (caseFold) query = query.toLowerCase();
-      var fold = caseFold ? function(str){return str.toLowerCase();} : function(str){return str;};
+      var fold = caseFold ? str => str.toLowerCase() : str => str;
       var target = query.split("\n");
       // Different methods for single-line and multi-line queries
       if (target.length == 1) {

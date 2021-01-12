@@ -157,9 +157,9 @@ CodeMirror.defineMode("fortran", function() {
   // Interface
 
   return {
-    startState: function() {
-      return {tokenize: null};
-    },
+    startState: () => ({
+      tokenize: null
+    }),
 
     token: function(stream, state) {
       if (stream.eatSpace()) return null;

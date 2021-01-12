@@ -84,12 +84,12 @@ CodeMirror.defineMode("turtle", function(config) {
   }
 
   return {
-    startState: function() {
-      return {tokenize: tokenBase,
-              context: null,
-              indent: 0,
-              col: 0};
-    },
+    startState: () => ({
+      tokenize: tokenBase,
+      context: null,
+      indent: 0,
+      col: 0
+    }),
 
     token: function(stream, state) {
       if (stream.sol()) {

@@ -10,21 +10,17 @@ CodeMirror.multiplexingMode = function(outer /*, others */) {
   }
 
   return {
-    startState: function() {
-      return {
-        outer: CodeMirror.startState(outer),
-        innerActive: null,
-        inner: null
-      };
-    },
+    startState: () => ({
+      outer: CodeMirror.startState(outer),
+      innerActive: null,
+      inner: null
+    }),
 
-    copyState: function(state) {
-      return {
-        outer: CodeMirror.copyState(outer, state.outer),
-        innerActive: state.innerActive,
-        inner: state.innerActive && CodeMirror.copyState(state.innerActive.mode, state.inner)
-      };
-    },
+    copyState: state => ({
+      outer: CodeMirror.copyState(outer, state.outer),
+      innerActive: state.innerActive,
+      inner: state.innerActive && CodeMirror.copyState(state.innerActive.mode, state.inner)
+    }),
 
     token: function(stream, state) {
       if (!state.innerActive) {
@@ -94,8 +90,6 @@ CodeMirror.multiplexingMode = function(outer /*, others */) {
 
     electricChars: outer.electricChars,
 
-    innerMode: function(state) {
-      return state.inner ? {state: state.inner, mode: state.innerActive.mode} : {state: state.outer, mode: outer};
-    }
+    innerMode: state => state.inner ? {state: state.inner, mode: state.innerActive.mode} : {state: state.outer, mode: outer}
   };
 };

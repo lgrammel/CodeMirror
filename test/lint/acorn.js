@@ -301,7 +301,7 @@
     // switch first dispatches on the lengths, to save on comparisons.
 
     if (cats.length > 3) {
-      cats.sort(function(a, b) {return b.length - a.length;});
+      cats.sort((a, b) => b.length - a.length);
       f += "switch(str.length){";
       for (var i = 0; i < cats.length; ++i) {
         var cat = cats[i];

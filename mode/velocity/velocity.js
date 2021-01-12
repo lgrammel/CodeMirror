@@ -162,15 +162,13 @@ CodeMirror.defineMode("velocity", function() {
     // Interface
 
     return {
-        startState: function() {
-            return {
-                tokenize: tokenBase,
-                beforeParams: false,
-                inParams: false,
-                inString: false,
-                lastTokenWasBuiltin: false
-            };
-        },
+        startState: () => ({
+            tokenize: tokenBase,
+            beforeParams: false,
+            inParams: false,
+            inString: false,
+            lastTokenWasBuiltin: false
+        }),
 
         token: function(stream, state) {
             if (stream.eatSpace()) return null;

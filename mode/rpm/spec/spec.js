@@ -10,13 +10,11 @@ CodeMirror.defineMode("spec", function() {
   var operators = /^(\!|\?|\<\=|\<|\>\=|\>|\=\=|\&\&|\|\|)/; // operators in control flow macros
 
   return {
-    startState: function () {
-        return {
-          controlFlow: false,
-          macroParameters: false,
-          section: false
-        };
-    },
+    startState: () => ({
+      controlFlow: false,
+      macroParameters: false,
+      section: false
+    }),
     token: function (stream, state) {
       var ch = stream.peek();
       if (ch == "#") { stream.skipToEnd(); return "comment"; }

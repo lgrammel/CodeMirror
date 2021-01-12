@@ -430,13 +430,11 @@ CodeMirror.defineMode("xquery", function() {
 
   // the interface for the mode API
   return {
-    startState: function() {
-      return {
-        tokenize: tokenBase,
-        cc: [],
-        stack: []
-      };
-    },
+    startState: () => ({
+      tokenize: tokenBase,
+      cc: [],
+      stack: []
+    }),
 
     token: function(stream, state) {
       if (stream.eatSpace()) return null;
