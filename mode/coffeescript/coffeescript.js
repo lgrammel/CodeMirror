@@ -208,7 +208,8 @@ CodeMirror.defineMode('coffeescript', function(conf) {
         return "comment";
     }
 
-    function indent(stream, state, type = 'coffee') {
+    function indent(stream, state, type) {
+        type = type || 'coffee';
         var indentUnit = 0;
         if (type === 'coffee') {
             for (var i = 0; i < state.scopes.length; i++) {
